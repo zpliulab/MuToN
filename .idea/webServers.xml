@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5ef598e4-993c-453c-b350-c5344d14d2e9" name="Qiao">
+        <fileTransfer accessType="SFTP" host="182.45.244.122" port="7600" sshConfigId="051e5ee9-1806-4de9-ab1d-31862314a224" sshConfig="lzp@182.45.244.122:7600 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
