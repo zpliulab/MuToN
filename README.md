@@ -1,20 +1,27 @@
 ![MuToN](https://github.com/zpliulab/MuToN/blob/main/logo.png)
-## MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
+# MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
 
-## Python packages
+## Requirements
+### Python packages
 * [BioPython*](https://github.com/biopython/biopython) (v1.78). To deal with computings relating to structures and sequences of proteins.
 * [Pytorch*](https://pytorch.org/) (v2.0.1). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
 * [scikit-learn*](https://scikit-learn.org/) (v0.24.1). For machine learning relating computation.
-* [esm*] (https://github.com/facebookresearch/esm). For protein residue embedding.
+* [esm*](https://github.com/facebookresearch/esm). For protein residue embedding.
 ## Standalone software
-* [MODELLER] (https://salilab.org/modeller/). For modeling of mutant protein three-dimensional structures.
+* [MODELLER] (https://salilab.org/modeller/). Installing refers to https://salilab.org/modeller/download_installation.html.
 
-### 2. Training an evaluation.
-This section is meant to introduce how to reproduce the results in Fig. 2, which involves conducting ten-fold cross-validation on the SKEMPI V2.0 dataset using MuToN.
-The project does not contain a standalone script specifically for preprocessing protein structures. However, during the data loading stage before model training, the protein preprocessing routine is executed.
-So just run:
+## Download data.
+To speed up training, download all the pre-computed data, including mutation list, complexes, mutant protein structures, pre-computed llm features.
 ```
-python train.py
+wget https://zenodo.org/record...
+unzip PDBs.zip
+
+```
+## Training and evaluation.
+
+The project does not contain a standalone script specifically for preprocessing protein structures. However, during the data loading stage, the protein preprocessing routine is executed. To reproduce the experiments in Fig. 2. simply run:
+```
+python train.py --dataset SKEMPI2 --splitting mutation --checkpoints_dir SKEMPI2_mutation
 ```
 ## License
 MuToN is released under an [MIT License](LICENSE).
