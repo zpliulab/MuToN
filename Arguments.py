@@ -2,12 +2,20 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Network parameters")
 
+parser.add_argument(
+    "--checkpoints_dir",
+    type=str,
+    default="Checkpoints/example",
+    help="Where the log and model save",
+)
+
 # Main parameters
 parser.add_argument(
     "--dataset",
     type=str,
     default='S1131',
-    help="SKEMPI2, S1131, S4169 or M1101",
+    help="SKEMPI2, S1131, S4169",
+    choices=['SKEMPI2', 'S1131', 'S4169'],
 )
 
 parser.add_argument(
@@ -15,22 +23,15 @@ parser.add_argument(
     type=str,
     default='mutation',
     help="mutation or complex",
+    choices=['mutation', 'complex'],
 )
 
 parser.add_argument(
-    "--fold",
-    type=int,
-    default=1,
-    help="cross validation",
-)
-
-parser.add_argument(
-    "--checkpoints_dir",
+    "--device",
     type=str,
-    default="Pretrained_model/mutation_level_6A",
-    help="Where the log and model save",
+    default="cuda:0",
+    help="Which gpu/cpu to train on"
 )
-
 
 parser.add_argument(
     "--n_layers_structure",
@@ -67,12 +68,7 @@ parser.add_argument(
     help="Number of proteins in a batch"
 )
 
-parser.add_argument(
-    "--device",
-    type=str,
-    default="cuda:1",
-    help="Which gpu/cpu to train on"
-)
+
 
 parser.add_argument(
     "--seed",

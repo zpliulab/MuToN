@@ -177,21 +177,6 @@ def load_pdb(args, files, parallelize=False):
     return pdbs
 
 
-
-def load_sk(fold):
-    with open('dataset/SKEMPI2_S4169.txt', 'r') as pid:
-        lines = pid.readlines()[1:]
-
-    record_train = []
-    record_test = []
-    for line in lines:
-        pdb_id, mutation, DDG, _, fold_ = line.split('\t')
-        if fold_ == fold:
-            record_test.append([pdb_id, mutation, DDG])
-        else:
-            record_train.append([pdb_id, mutation, DDG])
-    return record_train, record_test
-
 def load_SKEMPI2():
     with open('dataset/skempi_v2.csv', 'r') as pid:
         lines = pid.readlines()[1:]
@@ -398,8 +383,6 @@ def collate_fn(batch):
     return meta
 
 class DataLoader:
-    """multi-threaded data loading"""
-
     def __init__(self, opt):
         self.opt = opt
         self.dataset = self.CreateDataset()
@@ -412,11 +395,6 @@ class DataLoader:
 
     def CreateDataset(self):
         pdbid2sites, pdbid = eval('load_'+self.opt.dataset)()
-
-        # pdbid2sites, pdbid = load_SKEMPI2()
-        # pdbid2sites, pdbid = load_S4169()
-        # pdbid2sites, pdbid = load_S1131()
-        # pdbid2sites, pdbid = load_M1101()
         random.seed(2023)
         random.shuffle(pdbid)
         fold_frac_test = 0.1

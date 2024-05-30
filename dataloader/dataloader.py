@@ -103,7 +103,6 @@ def load_triplet(args, file):
     p2_topk2_1 = extract_topology(p2_xyz, p1_xyz)
     # topk2_1 = extract_topology(xyz, xyz2)
 
-
     #For ligand side with mutated formation
     call_modeller(args['single_dir'], pdb_id + '_' + mutated_chain, res_id, mutated_rescode, wild_rescode)
 
@@ -153,7 +152,6 @@ def load_pdb(args, files, parallelize=False):
                 pass
     else:
         n_jobs = cpu_count() - 1
-        n_jobs = 16
         pdbs_including_wrong = Parallel(n_jobs=n_jobs, verbose=False, timeout=None)(
             delayed(load_triplet)(args, file) for i, file in enumerate(files)
         )
@@ -166,7 +164,6 @@ def load_pdb(args, files, parallelize=False):
             print('hello')
     return pdbs
 
-
 def load_SKEMPI2():
     with open('data/SKEMPI/skempi_v2.csv', 'r') as pid:
         lines = pid.readlines()[1:]
@@ -176,8 +173,8 @@ def load_SKEMPI2():
     pdbid = []
     for line in lines:
         line = line.split(';')
-        # if len(line[2].split(','))!=1:
-        #     continue
+        if len(line[2].split(','))!=1:
+            continue
         mutated_rescode = []
         wild_rescode = []
         mutated_resid = []
@@ -337,8 +334,6 @@ def collate_fn(batch):
     return meta
 
 class DataLoader:
-    """multi-threaded data loading"""
-
     def __init__(self, opt):
         self.opt = opt
         self.dataset = self.CreateDataset()
@@ -347,13 +342,8 @@ class DataLoader:
             batch_size=opt.batch_size,
             shuffle=True,
             collate_fn=collate_fn)
-
     def CreateDataset(self):
         pdbid2sites, pdbid = eval('load_'+self.opt.dataset)()
-        # pdbid2sites, pdbid = load_SKEMPI2()
-        # pdbid2sites, pdbid = load_S4169()
-        # pdbid2sites, pdbid = load_S1131()
-        # pdbid2sites, pdbid = load_M1101()
         records = [site for pdb in pdbid for site in pdbid2sites[pdb]]
         random.seed(2023)
         random.shuffle(records)
