@@ -11,8 +11,7 @@ Installing refers to https://salilab.org/modeller/download_installation.html.
 You need a license key to use Modeller first.  
 An easy way is to install Modeller using the 'conda' package manager, simply run from a command line under your environment:  
 ```
-conda config --add channels salilab  
-conda install modeller
+conda install -c salilab modeller
 ```
 And then Edit the file config.py according to promption after installation by replacing XXXX with your Modeller license key.
 
