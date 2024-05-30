@@ -1,7 +1,7 @@
-![MuToN]<img src="https://github.com/zpliulab/MuToN/blob/main/logo.png" width=256/>
-# MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
+<img src="https://github.com/zpliulab/MuToN/blob/main/logo.png" width=512/>
 
-### Requirements
+## MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
+## Requirements
 * [BioPython*](https://github.com/biopython/biopython) (v1.78). To deal with computings relating to structures and sequences of proteins.
 * [Pytorch*](https://pytorch.org/) (v2.0.1). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
 * [Scikit-learn*](https://scikit-learn.org/) (v0.24.1). For machine learning relating computation.
