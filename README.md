@@ -26,18 +26,18 @@ The following folder structure is given as an example (LI38G mutation in 1CSE co
 ```
 ├── data/
 │   ├── SKEMPI/
-│   │   ├── raws/ # The PPI complex in SKEMPI dataset.
+│   │   ├── raws/ : contains the PPI complexes in SKEMPI dataset.
 │   │   │   ├── 1CSE.pdb
-│   │   ├── raw_pdb/ # The PPI complex in SKEMPI dataset.
-│   │   │   ├── 1CSE_E.pdb
+│   │   ├── raw_pdb/ : contains the single wild and mutant structure.
+│   │   │   ├── 1CSE_E.pdb : extrated from 1CSE.pdb
 │   │   │   ├── 1CSE_I.pdb
-│   │   │   ├── 1CSE_I.mut.38_E.pdb
-│   │   ├── llm_embedding/
+│   │   │   ├── 1CSE_I.mut.38_E.pdb : computed mutant structure of 1CSE_E.pdb
+│   │   ├── llm_embedding/ : contains the pre-computed LLM embeddings using ESM-2.
 │   │   │   ├── 1CSE_E.npy
 │   │   │   ├── 1CSE_I.npy
 │   │   │   ├── 1CSE_I.mut.38_E.npy
 
-```
+``
 ## Training and evaluation.
 
 The project does not contain a standalone script specifically for preprocessing protein structures. 
