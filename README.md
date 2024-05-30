@@ -9,9 +9,11 @@
 * [Modeller*](https://salilab.org/modeller/). For mutant protein structure modeling.  
 Installing refers to https://salilab.org/modeller/download_installation.html.  
 You need a license key to use Modeller first.  
-An easy way is to install Modeller using the 'conda' package manager, simply run from a command line:  
+An easy way is to install Modeller using the 'conda' package manager, simply run from a command line under your environment:  
+```
 conda config --add channels salilab  
-conda install modeller  
+conda install modeller
+```
 And then Edit the file config.py according to promption after installation by replacing XXXX with your Modeller license key.
 
 ## Download data.
@@ -25,15 +27,16 @@ The data folder should be placed in the root directory of the project.
 The following folder structure is given as an example (LI38G mutation in 1CSE complex in SKEMPI dataset):
 ```
 ├── data/
+│   ├── skempi_v2.csv                # contains the mutation records in SKEMPI dataset.
 │   ├── SKEMPI/
-│   │   ├── raws/                   # contains the PPI complexes in SKEMPI dataset.
+│   │   ├── raws/                    # contains the PPI complexes in SKEMPI dataset.
 │   │   │   ├── 1CSE.pdb
-│   │   ├── raw_pdb/                # contains the single wild and mutant structure.
-│   │   │   ├── 1CSE_E.pdb          # extrated from 1CSE.pdb
+│   │   ├── raw_pdb/                 # contains the single wild and mutant structure.
+│   │   │   ├── 1CSE_E.pdb           # extrated from 1CSE.pdb
 │   │   │   ├── 1CSE_I.pdb
-│   │   │   ├── 1CSE_I.mut.38_E.pdb # computed mutant structure of 1CSE_E.pdb
-│   │   ├── llm_embedding/          # contains the pre-computed LLM embeddings using ESM-2.
-│   │   │   ├── 1CSE_E.npy
+│   │   │   ├── 1CSE_I.mut.38_E.pdb  # computed mutant structure of 1CSE_E.pdb
+│   │   ├── llm_embedding/           # contains the pre-computed LLM embeddings using ESM-2.
+│   │   │   ├── 1CSE_E.npy           # LLM embedding of 1CSE_E.pdb, shape=(L, 1280)
 │   │   │   ├── 1CSE_I.npy
 │   │   │   ├── 1CSE_I.mut.38_E.npy
 
@@ -45,7 +48,7 @@ However, during the data loading stage, the protein preprocessing routine is exe
 
 **Usage description**:  
 --checkpoints_dir. #Default is Checkpoints/example. Specify a directory to save the model checkpoints.  
---dataset SKEMPI2 or S1131 or S4169 or M1101. #Default is S1131. Specify which dataset to use.  
+--dataset SKEMPI2 or S1131 or S4169 or M1707. #Default is S1131. Specify which dataset to use.  
 --splitting mutation or complex. #Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level.  
 --device cuda:0 or cpu, etc. #Default is cuda:0. Specifies the device to run the model on.  
 **For example**, to train and evaluate the model on the SKEMPI2 dataset using the mutation-level splitting mode, run the following command:  
