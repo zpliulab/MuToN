@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10445253.svg)](https://doi.org/10.5281/zenodo.10445253)
 
 This repository closely reproduce the experiments of:
-Pengpai Li, Zhi-Ping LIu (2024). MuToN Quantifies Binding Affinity Changes upon Protein Mutations by Geometric Deep Learning. (To be published)
+Pengpai Li, Zhi-Ping Liu. MuToN Quantifies Binding Affinity Changes upon Protein Mutations by Geometric Deep Learning. (2024, to be published)
 ## Requirements
 * [BioPython*](https://github.com/biopython/biopython) (v1.78). To deal with computings relating to structures and sequences of proteins.
 * [Pytorch*](https://pytorch.org/) (v2.0.1). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
@@ -50,10 +50,10 @@ The project does not contain a standalone script specifically for preprocessing 
 However, during the data loading stage, the protein preprocessing routine is executed. 
 
 **Usage description**:  
---checkpoints_dir. Default is Checkpoints/example. Specify a directory to save the model checkpoints.  
---dataset SKEMPI2 or S1131 or S4169 or M1707. #Default is S1131. Specify which dataset to use.  
---splitting mutation or complex. #Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level.  
---device cuda:0 or cpu, etc. #Default is cuda:0. Specifies the device to run the model on.  
+--checkpoints_dir. <font color=gray># Default is Checkpoints/example. Specify a directory to save the model checkpoints.</font>  
+--dataset SKEMPI2 or S1131 or S4169 or M1707. <font color=gray># Default is S1131. Specify which dataset to use. </font>  
+--splitting mutation or complex. <font color=gray># Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level. </font>   
+--device cuda:0 or cpu, etc. <font color=gray># Default is cuda:0. Specifies the device to run the model on.  </font>  
 **For example**, to train and evaluate the model on the SKEMPI2 dataset using the mutation-level splitting mode, run the following command:  
 ```
 python train.py --checkpoints_dir SKEMPI2_mutation --dataset SKEMPI2 --splitting mutation --device cuda:0
