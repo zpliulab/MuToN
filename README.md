@@ -50,10 +50,10 @@ The project does not contain a standalone script specifically for preprocessing 
 However, during the data loading stage, the protein preprocessing routine is executed. 
 
 **Usage description**:  
---checkpoints_dir. <font size=1>                           # Default is Checkpoints/example. Specify a directory to save the model checkpoints.</font>  
+--checkpoints_dir.                            <font size=1># Default is Checkpoints/example. Specify a directory to save the model checkpoints.</font>  
 --dataset SKEMPI2 or S1131 or S4169 or M1707. <font size=1># Default is S1131. Specify which dataset to use. </font>  
---splitting mutation or complex. <font size=1>             # Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level. </font>   
---device cuda:0 or cpu, etc. <font size=1>                 # Default is cuda:0. Specifies the device to run the model on.  </font>  
+--splitting mutation or complex.              <font size=1># Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level. </font>   
+--device cuda:0 or cpu, etc.                  <font size=1># Default is cuda:0. Specifies the device to run the model on.  </font>  
 **For example**, to train and evaluate the model on the SKEMPI2 dataset using the mutation-level splitting mode, run the following command:  
 ```
 python train.py --checkpoints_dir SKEMPI2_mutation --dataset SKEMPI2 --splitting mutation --device cuda:0
