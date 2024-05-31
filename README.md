@@ -1,6 +1,7 @@
 <img src="https://github.com/zpliulab/MuToN/blob/main/logo.png" width=512/>
 
 ## MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10445253.svg)](https://doi.org/10.5281/zenodo.10445253)
 
 This repository closely reproduce the experiments of:
 Pengpai Li, Zhi-Ping LIu (2024). MuToN Quantifies Binding Affinity Changes upon Protein Mutations by Geometric Deep Learning. (To be published)
@@ -19,8 +20,7 @@ conda install -c salilab modeller
 And then Edit the file config.py according to promption after installation by replacing XXXX with your Modeller license key.
 
 ## Download data.
-The precomputed data using to reproduce the results of our paper is sourced at [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10445253.svg)](https://doi.org/10.5281/zenodo.10445253).
-.  
+The precomputed data using to reproduce the results of our paper is sourced at https://zenodo.org/records/10445253.  
 This repository includes the lists of mutation records, complexes, mutant protein structures and files of pre-computed LLM embeddings.
 ```
 wget https://zenodo.org/records/10445253/files/data.zip 
