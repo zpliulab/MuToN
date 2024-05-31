@@ -1,8 +1,9 @@
 <img src="https://github.com/zpliulab/MuToN/blob/main/logo.png" width=512/>
 
 ## MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
-[![bioRxiv shield](https://img.shields.io/badge/bioRxiv-1709.01233-green.svg?style=flat)](https://www.biorxiv.org/content/10.1101/606202v1)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10445253.svg)](https://doi.org/10.5281/zenodo.10445253)
+This repository closely reproduce the experiments of:
+Pengpai Li, Zhi-Ping LIu (2024). MuToN Quantifies Binding Affinity Changes upon Protein Mutations by Geometric Deep Learning. (To be published)
 ## Requirements
 * [BioPython*](https://github.com/biopython/biopython) (v1.78). To deal with computings relating to structures and sequences of proteins.
 * [Pytorch*](https://pytorch.org/) (v2.0.1). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
@@ -59,5 +60,4 @@ python train.py --checkpoints_dir SKEMPI2_mutation --dataset SKEMPI2 --splitting
 
 ## License
 MuToN is released under an [MIT License](LICENSE).
-
 MuToN quantifies binding affinity changes upon protein mutations by geometric deep learning.
