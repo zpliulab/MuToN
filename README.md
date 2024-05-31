@@ -1,6 +1,8 @@
 <img src="https://github.com/zpliulab/MuToN/blob/main/logo.png" width=512/>
 
 ## MuToN: An end-to-end geometric deep learning framework for predicting binding affinity changes upon protein mutations.
+[![bioRxiv shield](https://img.shields.io/badge/bioRxiv-1709.01233-green.svg?style=flat)](https://www.biorxiv.org/content/10.1101/606202v1)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10445253.svg)](https://doi.org/10.5281/zenodo.10445253)
 ## Requirements
 * [BioPython*](https://github.com/biopython/biopython) (v1.78). To deal with computings relating to structures and sequences of proteins.
 * [Pytorch*](https://pytorch.org/) (v2.0.1). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
@@ -46,7 +48,7 @@ The project does not contain a standalone script specifically for preprocessing 
 However, during the data loading stage, the protein preprocessing routine is executed. 
 
 **Usage description**:  
---checkpoints_dir. #Default is Checkpoints/example. Specify a directory to save the model checkpoints.  
+--checkpoints_dir. Default is Checkpoints/example. Specify a directory to save the model checkpoints.  
 --dataset SKEMPI2 or S1131 or S4169 or M1707. #Default is S1131. Specify which dataset to use.  
 --splitting mutation or complex. #Default is mutation. Specify the Train-Test partitioning mode of the dataset. Mutation-level or complex-level.  
 --device cuda:0 or cpu, etc. #Default is cuda:0. Specifies the device to run the model on.  
