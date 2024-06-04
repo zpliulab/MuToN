@@ -318,56 +318,6 @@ def load_S1131():
             pass
     return pdbid2sites, pdbid
 
-def load_M1101():
-    import pandas as pd
-    lines = pd.read_csv('lists/M1101.csv')
-    non_redundant = set()
-    # record = []
-    pdbid2sites = {}
-    pdbid = []
-    for line in lines.values:
-        pdb_id = line[0]
-        info = line[4]
-
-        mutated_rescode = []
-        wild_rescode = []
-        mutated_resid = []
-        mutated_chain = []
-        for item in info.split(','):
-            mutated_rescode.append(item[-1])
-            wild_rescode.append(item[2])
-            mutated_resid.append(item[3:-1])
-            mutated_chain.append(item[0])
-        if len(set(mutated_chain)) != 1:
-            continue
-        mutated_chain = mutated_chain[0]
-        mutated_rescode = '_'.join(mutated_rescode)
-        wild_rescode = '_'.join(wild_rescode)
-        mutated_resid = '_'.join(mutated_resid)
-
-        p1_chain = line[1].split('_')
-        wild_chain = p1_chain[0] if p1_chain[1] in mutated_chain else p1_chain[1]
-        dG1 = 0  # wild
-        dG2 = 0
-        ddG = float(line[5])
-        # print(dG1-dG2)
-        rec='{},{},{}:{}\n'.format(pdb_id, wild_chain + '_' + mutated_chain, mutated_chain,
-                                   wild_rescode + str(mutated_resid) + mutated_rescode)
-        if rec not in non_redundant:
-            if pdb_id in pdbid2sites.keys():
-                pdbid2sites[pdb_id].append(
-                    [pdb_id, wild_chain, mutated_chain, mutated_resid, wild_rescode, mutated_rescode, dG1, dG2,
-                     ddG])
-            else:
-                pdbid2sites[pdb_id]=[
-                    [pdb_id, wild_chain, mutated_chain, mutated_resid, wild_rescode, mutated_rescode, dG1, dG2,
-                     ddG], ]
-                pdbid.append(pdb_id)
-            non_redundant.add(rec)
-        else:
-            pass
-    return pdbid2sites, pdbid
-
 
 def collate_fn(batch):
     """Creates mini-batch tensors
