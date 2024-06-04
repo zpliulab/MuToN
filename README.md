@@ -21,7 +21,7 @@ And then Edit the file config.py according to promption after installation by re
 
 ## Download data.
 The precomputed data using to reproduce the results of our paper is sourced at https://zenodo.org/records/10445253.  
-This repository includes the lists of mutation records, complexes, mutant protein structures and files of pre-computed LLM embeddings.
+This repository includes the lists of complex structures, mutant protein structures and files of pre-computed LLM embeddings.
 ```
 wget https://zenodo.org/records/10445253/files/data.zip 
 unzip data.zip
