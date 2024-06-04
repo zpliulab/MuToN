@@ -186,8 +186,6 @@ def load_SKEMPI2():
     pdbid = []
     for line in lines:
         line = line.split(';')
-        # if len(line[2].split(','))==1:
-        #     continue
         mutated_rescode = []
         wild_rescode = []
         mutated_resid = []
@@ -199,17 +197,12 @@ def load_SKEMPI2():
             mutated_chain.append(item[1])
         if len(set(mutated_chain)) != 1:
             continue
-        mutated_chain = mutated_chain[0]
         mutated_rescode = '_'.join(mutated_rescode)
         wild_rescode = '_'.join(wild_rescode)
         mutated_resid = '_'.join(mutated_resid)
         pdb_id, p1, p2 = line[0].split('_')
         mutated_chain = line[2][1]
         wild_chain = p1 if mutated_chain in p2 else p2
-        # mutated_resid = line[2][2:-1]
-        # wild_rescode= line[2][0]
-        # mutated_rescode = line[2][-1]
-        # R = 8.314/4184
         R = 0.001985
         try:
             T = float(line[13][:3])
@@ -219,9 +212,7 @@ def load_SKEMPI2():
             continue
         dG1 = np.float32(T * R * np.log(float(line[8]))) #wild
         dG2 = np.float32(T * R * np.log(float(line[7])))#mutated
-        # print(dG1-dG2)
         rec = '{},{},{}:{}\n'.format(pdb_id, wild_chain+'_'+mutated_chain, mutated_chain, wild_rescode+str(mutated_resid)+mutated_rescode)
-        # pdb_id_wild_chain = pdb_id +'_'+ wild_chain
         if rec not in non_redundant:
             if pdb_id in pdbid2sites.keys():
                 pdbid2sites[pdb_id].append(
