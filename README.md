@@ -30,7 +30,6 @@ The data folder should be placed in the root directory of the project.
 The following folder structure is given as an example (LI38G mutation in 1CSE complex in SKEMPI dataset):
 ```
 ├── data/
-│   ├── skempi_v2.csv                # contains the mutation records in SKEMPI dataset.
 │   ├── SKEMPI/
 │   │   ├── raws/                    # contains the PPI complexes in SKEMPI dataset.
 │   │   │   ├── 1CSE.pdb
@@ -63,3 +62,4 @@ python train.py --checkpoints_dir SKEMPI2_mutation --dataset SKEMPI2 --splitting
 
 ## License
 MuToN is released under an [MIT License](LICENSE).
+MuToN quantifies binding affinity changes upon protein mutations by geometric deep learning.
