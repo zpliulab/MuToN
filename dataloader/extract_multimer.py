@@ -134,13 +134,11 @@ def extractPDB(infile_dir, outfile_dir, pdbid_chainid, aug=False):
 
 def call_modeller(infile_dir, pdbid_chainid, res_id, mutated_rescode, wild_rescode=None):
     outfilename = os.path.join(infile_dir, '{}.mut.{}_{}.pdb'.format(pdbid_chainid,res_id, mutated_rescode))
-    if not os.path.exists(outfilename):
+    if os.path.exists(outfilename):
         return
     try:
         build_model(infile_dir, '{}_{}'.format(res_id, mutated_rescode),
                     pdbid_chainid, res_id, seq3(mutated_rescode).upper(), pdbid_chainid.split('_')[1])
-    # build_model(infile_dir, '{}_{}'.format(res_id, mutated_rescode),
-    #             pdbid_chainid, res_id, seq3(mutated_rescode).upper(), pdbid_chainid.split('_')[1])
     except:
         print('modeller error')
         return
@@ -149,8 +147,6 @@ def call_foldx(infile_dir, pdbid_chainid, res_id, mutated_rescode, wild_rescode)
     outfilename = os.path.join(infile_dir, '{}.mut.{}_{}.pdb'.format(pdbid_chainid,res_id, mutated_rescode))
     if os.path.exists(outfilename):
         return
-    # return
-    # individual_list = os.path.join(infile_dir, 'individual_list.txt')
     individual_list = os.path.join(infile_dir, 'individual_list_'+'_'.join([pdb_id, mutated_chain, res_id, mutated_rescode])+'.txt')
     with open(individual_list, 'w') as pid:
         str_towrite = ''
@@ -242,6 +238,7 @@ def make_restraints(mdl1, aln):
 #first argument
 
 def build_model(file_dir, outname, modelname, respos, restyp, chain):
+    print("calling modeller start")
     __console__ = sys.stdout
     sys.stdout = open(os.devnull, 'w')
     log.verbose()
@@ -342,3 +339,4 @@ def build_model(file_dir, outname, modelname, respos, restyp, chain):
     #give a proper name
     mdl1.write(file=file_dir+modelname+".mut."+outname+'.pdb')
     sys.stdout = __console__
+    print("calling modeller over")
