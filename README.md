@@ -63,4 +63,3 @@ python train.py --checkpoints_dir SKEMPI2_mutation --dataset SKEMPI2 --splitting
 
 ## License
 MuToN is released under an [MIT License](LICENSE).
-MuToN quantifies binding affinity changes upon protein mutations by geometric deep learning.
