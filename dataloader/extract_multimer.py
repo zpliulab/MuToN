@@ -1,5 +1,6 @@
 import sys, shutil
 from Bio.PDB import *
+from Bio.PDB import Selection as Bio_Selection
 import numpy as np
 from numpy import linalg as LA
 import math
@@ -45,7 +46,7 @@ def read_PDB(in_pdb_dir, pdb_name, mutated_resid=None,  wild_rescode=None):
     try:
         parser = PDBParser(QUIET=True)
         struct = parser.get_structure(pdb_file, pdb_file)
-        Residues = Selection.unfold_entities(struct, "R")
+        Residues = Bio_Selection.unfold_entities(struct, "R")
     except:
         info = (np.empty(shape=(0)), np.empty(shape=(0, 3)), np.empty(shape=(0,3,3)), '', 0)
     else:
@@ -106,7 +107,7 @@ def extractPDB(infile_dir, outfile_dir, pdbid_chainid, aug=False):
         return
     parser = PDBParser(QUIET=True)
     struct = parser.get_structure(infilename, infilename)
-    model = Selection.unfold_entities(struct, "M")[0]
+    model = Bio_Selection.unfold_entities(struct, "M")[0]
     chain = model.child_dict[chain_id]
 
     # Select residues to extract and build new structure
@@ -133,11 +134,16 @@ def extractPDB(infile_dir, outfile_dir, pdbid_chainid, aug=False):
 
 def call_modeller(infile_dir, pdbid_chainid, res_id, mutated_rescode, wild_rescode=None):
     outfilename = os.path.join(infile_dir, '{}.mut.{}_{}.pdb'.format(pdbid_chainid,res_id, mutated_rescode))
-    # if not os.path.exists(outfilename):
-    #     return
-    build_model(infile_dir, '{}_{}'.format(res_id, mutated_rescode),
-                pdbid_chainid, res_id, seq3(mutated_rescode).upper(), pdbid_chainid.split('_')[1])
-
+    if not os.path.exists(outfilename):
+        return
+    try:
+        build_model(infile_dir, '{}_{}'.format(res_id, mutated_rescode),
+                    pdbid_chainid, res_id, seq3(mutated_rescode).upper(), pdbid_chainid.split('_')[1])
+    # build_model(infile_dir, '{}_{}'.format(res_id, mutated_rescode),
+    #             pdbid_chainid, res_id, seq3(mutated_rescode).upper(), pdbid_chainid.split('_')[1])
+    except:
+        print('modeller error')
+        return
 def call_foldx(infile_dir, pdbid_chainid, res_id, mutated_rescode, wild_rescode):
     pdb_id, mutated_chain = pdbid_chainid.split('_')
     outfilename = os.path.join(infile_dir, '{}.mut.{}_{}.pdb'.format(pdbid_chainid,res_id, mutated_rescode))
