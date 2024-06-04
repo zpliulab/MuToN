@@ -112,10 +112,7 @@ def load_triplet(args, file):
                           p3_fasta, model, alphabet, batch_converter)
     p3_topk = extract_topology(p3_xyz)
     p3_topk3_1 = extract_topology(p3_xyz, p1_xyz)
-    # topk3_1 = extract_topology(xyz, xyz3)
 
-    # if p1['token'].shape[0]!=p1['llm'].shape[0] or p2['token'].shape[0]!=p2['llm'].shape[0] or p3['token'].shape[0]!=p3['llm'].shape[0]:
-    #     print('hello')
     Triplet = pack(
             token_p1=inttensor(p1_token),
             token_p2=inttensor(p2_token),
@@ -151,7 +148,7 @@ def load_pdb(args, files, parallelize=False):
             except:
                 pass
     else:
-        n_jobs = cpu_count() - 1
+        n_jobs = cpu_count()//16
         pdbs_including_wrong = Parallel(n_jobs=n_jobs, verbose=False, timeout=None)(
             delayed(load_triplet)(args, file) for i, file in enumerate(files)
         )
@@ -161,11 +158,69 @@ def load_pdb(args, files, parallelize=False):
                 and len(item['llm_p1']) == len(item['token_p1']) and len(item['llm_p2']) == len(item['token_p2']) and len(item['llm_p3']) == len(item['token_p3']):
             pdbs.append(item)
         else:
-            print('hello')
+            pass
     return pdbs
 
 def load_SKEMPI2():
-    with open('data/SKEMPI/skempi_v2.csv', 'r') as pid:
+    with open('lists/skempi_v2.csv', 'r') as pid:
+        lines = pid.readlines()[1:]
+    non_redundant = set()
+    # record = []
+    pdbid2sites = {}
+    pdbid = []
+    for line in lines:
+        line = line.split(';')
+        if len(line[2].split(','))!=1:
+            continue
+        mutated_rescode = []
+        wild_rescode = []
+        mutated_resid = []
+        mutated_chain = []
+        for item in line[2].split(','):
+            mutated_rescode.append(item[-1])
+            wild_rescode.append(item[0])
+            mutated_resid.append(item[2:-1])
+            mutated_chain.append(item[1])
+        mutated_chain = mutated_chain[0]
+        mutated_rescode = '_'.join(mutated_rescode)
+        wild_rescode = '_'.join(wild_rescode)
+        mutated_resid = '_'.join(mutated_resid)
+        pdb_id, p1, p2 = line[0].split('_')
+        mutated_chain = line[2][1]
+        wild_chain = p1 if mutated_chain in p2 else p2
+        # mutated_resid = line[2][2:-1]
+        # wild_rescode= line[2][0]
+        # mutated_rescode = line[2][-1]
+        # R = 8.314/4184
+        R = 0.001985
+        try:
+            T = float(line[13][:3])
+            a = np.float32(298 * R * np.log(float(line[8])))
+            b = np.float32(298 * R * np.log(float(line[7])))
+        except:
+            continue
+        dG1 = np.float32(T * R * np.log(float(line[8]))) #wild
+        dG2 = np.float32(T * R * np.log(float(line[7])))#mutated
+        # print(dG1-dG2)
+        rec = '{},{},{}:{}\n'.format(pdb_id, wild_chain+'_'+mutated_chain, mutated_chain, wild_rescode+str(mutated_resid)+mutated_rescode)
+        # if rec!='1IAR,B_A,A:Q8A\n':
+        #     continue
+        pdb_id_wild_chain = pdb_id +'_'+ wild_chain
+        if rec not in non_redundant:
+            if pdb_id_wild_chain in pdbid2sites.keys():
+                pdbid2sites[pdb_id_wild_chain].append(
+                    [pdb_id, wild_chain, mutated_chain, mutated_resid, wild_rescode, mutated_rescode, dG1, dG2, dG1-dG2])
+            else:
+                pdbid2sites[pdb_id_wild_chain]=[
+                    [pdb_id, wild_chain, mutated_chain, mutated_resid, wild_rescode, mutated_rescode, dG1, dG2, dG1-dG2], ]
+                pdbid.append(pdb_id_wild_chain)
+            non_redundant.add(rec)
+        else:
+            pass
+    return pdbid2sites, pdbid
+
+def load_S4169():
+    with open('lists/skempi_v2.csv', 'r') as pid:
         lines = pid.readlines()[1:]
     non_redundant = set()
     # record = []
@@ -225,7 +280,7 @@ def load_SKEMPI2():
     return pdbid2sites, pdbid
 
 def load_S1131():
-    with open('data/SKEMPI/S1131.csv', 'r') as pid:
+    with open('lists/S1131.csv', 'r') as pid:
         lines = pid.readlines()
     non_redundant = set()
     # record = []
@@ -265,8 +320,7 @@ def load_S1131():
 
 def load_M1101():
     import pandas as pd
-    lines = pd.read_csv('data/SKEMPI/M1101.csv')
-
+    lines = pd.read_csv('lists/M1101.csv')
     non_redundant = set()
     # record = []
     pdbid2sites = {}
@@ -357,7 +411,7 @@ class DataLoader:
             records = val_records
         if self.opt.subset == 'test':
             records = test_records
-        loaded_pdbs = load_pdb(self.opt.dir_opts, records, parallelize=False)
+        loaded_pdbs = load_pdb(self.opt.dir_opts, records, parallelize=True)
         print(self.opt.dataset, ': {}'.format(len(loaded_pdbs)))
         return loaded_pdbs
 

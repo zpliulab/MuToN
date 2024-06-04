@@ -178,7 +178,7 @@ def load_pdb(args, files, parallelize=False):
 
 
 def load_SKEMPI2():
-    with open('dataset/skempi_v2.csv', 'r') as pid:
+    with open('lists/skempi_v2.csv', 'r') as pid:
         lines = pid.readlines()[1:]
     non_redundant = set()
     # record = []
@@ -236,7 +236,7 @@ def load_SKEMPI2():
     return pdbid2sites, pdbid
 
 def load_S1131():
-    with open('data/SKEMPI/S1131.csv', 'r') as pid:
+    with open('lists/S1131.csv', 'r') as pid:
         lines = pid.readlines()
     non_redundant = set()
     # record = []
@@ -275,7 +275,7 @@ def load_S1131():
     return pdbid2sites, pdbid
 
 def load_S4169():
-    with open('data/SKEMPI/S4169.txt', 'r') as pid:
+    with open('lists/S4169.txt', 'r') as pid:
         lines = pid.readlines()
     non_redundant = set()
     # record = []
@@ -315,7 +315,7 @@ def load_S4169():
 
 def load_M1101():
     import pandas as pd
-    lines = pd.read_csv('data/SKEMPI/M1101.csv')
+    lines = pd.read_csv('lists/M1101.csv')
 
     non_redundant = set()
     # record = []
