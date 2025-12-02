@@ -172,8 +172,8 @@ def load_pdb(args, files, parallelize=False):
         )
     pdbs = []
     for item in pdbs_including_wrong:
-        if len(item['token_p1']) >= 1 and len(item['token_p2']) >= 1 and len(item['token_p3']) >=1:
-            pdbs.append(item)
+        if len(item['token_p1']) >= 1 and len(item['token_p2']) >= 1 and len(item['token_p3']) >=1\
+                and len(item['llm_p1']) == len(item['token_p1']) and len(item['llm_p2']) == len(item['token_p2']) and len(item['llm_p3']) == len(item['token_p3']):
     return pdbs
 
 
